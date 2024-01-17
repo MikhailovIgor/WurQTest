@@ -100,6 +100,7 @@ export const iconRegistry = {
   ladybug: require("../../assets/icons/ladybug.png"),
   lock: require("../../assets/icons/lock.png"),
   menu: require("../../assets/icons/menu.png"),
+  logo: require("../../assets/icons/logo.png"),
   more: require("../../assets/icons/more.png"),
   pin: require("../../assets/icons/demo/pin.png"),
   podcast: require("../../assets/icons/demo/podcast.png"),

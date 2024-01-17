@@ -10,3 +10,9 @@ export * from "./Text"
 export * from "./TextField"
 export * from "./Toggle"
 export * from "./EmptyState"
+export * from './CustomHeader'
+export * from './CustomChart'
+export * from './History'
+export * from './CustomCard'
+export * from './HeartIcon'
+export * from './PointsForm'
