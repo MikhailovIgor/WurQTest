@@ -1,53 +1,49 @@
-import React, { FC } from "react"
-import { ImageStyle, TextStyle, ViewStyle } from "react-native"
+import React, { FC, useState, useEffect } from "react"
+import { ActivityIndicator, ViewStyle, View } from "react-native"
 import { Screen, CustomHeader, CustomChart, History, PointsForm } from "../../components"
 import { spacing } from "../../theme"
 
-const mockData = [{value:15}, {value:-2}, {value:-5}, {value:8}, {value:10}, {value:6}, {value:-2}, {value:12} ]
-const mockHistoryData = [];
-
 export const HomeScreen: FC = () => {
+  const [data, setData] = useState(null);
+  const [isLoading, setIsLoading] = useState(true);
+  useEffect(() => {
+    fetch('https://awqgdt2ss8.execute-api.us-east-1.amazonaws.com/Prod/history')
+      .then(response => response.json())
+      .then(json => {
+        setData(json);
+        setIsLoading(false);
+      })
+      .catch(error => console.error(error))
+      .finally(() => setIsLoading(false));
+
+      return () => setIsLoading(true);  // unmount
+  }, [])
 
   return (
     <Screen preset="scroll" contentContainerStyle={$container}>
       <CustomHeader icon={'logo'} />
-      <CustomChart data={mockData} />
-      <History data={mockHistoryData}/>
-      <PointsForm />
+      {isLoading ? (
+        <View style={$activityIndicatorWrapper}> 
+          <ActivityIndicator size={'large'} color='#A8FF89' />
+        </View>
+      ) : (
+        <>
+        <CustomChart data={data?.points_per_wod} />
+        <History history={data?.history}/>
+        <PointsForm />
+      </>
+)}
     </Screen>
   )
 }
 
 const $container: ViewStyle = {
   paddingTop: spacing.lg,
-  // paddingHorizontal: spacing.md,
   backgroundColor: '#333F48',
 }
 
-const $title: TextStyle = {
-  marginBottom: spacing.sm,
-}
-
-const $tagline: TextStyle = {
-  marginBottom: spacing.xxl,
-}
-
-const $description: TextStyle = {
-  marginBottom: spacing.lg,
-}
-
-const $sectionTitle: TextStyle = {
-  marginTop: spacing.xxl,
-}
-
-const $logoContainer: ViewStyle = {
-  marginEnd: spacing.md,
-  flexDirection: "row",
-  flexWrap: "wrap",
-  alignContent: "center",
-}
-
-const $logo: ImageStyle = {
-  height: 38,
-  width: 38,
+const $activityIndicatorWrapper = {
+  heigth: 600,
+  width: '100%',
+  backgroundColor: '#333F48',
 }

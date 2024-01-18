@@ -6,9 +6,9 @@ import { CustomCard } from './CustomCard';
 import { useFonts, Montserrat_500Medium } from '@expo-google-fonts/montserrat';
 
 type HistoryProps = {
-  data: any
+  history: object
 }
-export const History:FC<HistoryProps> = ({ data }) => {
+export const History:FC<HistoryProps> = ({ history }) => {
   const [fontsLoaded] = useFonts({
     Montserrat_500Medium,
   });
@@ -20,14 +20,13 @@ export const History:FC<HistoryProps> = ({ data }) => {
   return (
   <View style={$container}>
     <Text preset='formHelper' text='History:' weight='semiBold' style={$title} />
-    <CustomCard data={data} />
+    <CustomCard history={history} />
   </View>
 )}
 
 const $container: ViewStyle = {
   flex: 1,
   justifyContent: 'center',
-  // alignItems: 'center',
   marginHorizontal: 18,
   marginBottom: 36,
 }

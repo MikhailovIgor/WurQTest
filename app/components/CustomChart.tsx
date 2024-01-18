@@ -5,6 +5,7 @@ import { useFonts, Montserrat_500Medium } from '@expo-google-fonts/montserrat';
 
 import { LineChartBicolor } from 'react-native-gifted-charts'
 import { Text } from './Text'
+import { reformChartPoints } from 'app/models/helpers/reformChartPoints';
 
 type CustomChartProps = {
   data: number[]
@@ -18,28 +19,28 @@ export const CustomChart:FC<CustomChartProps> = ({ data }) => {
   if (!fontsLoaded) {
     return null;
   }
-
+  
   return (
     <View style={$container}>
       <Text preset='formHelper' text='Points per WOD' weight='semiBold' style={$title} />
         <LineChartBicolor
-        data={data}
-        xAxisColor="#fff"
-        yAxisColor="#fff"
-        xAxisType='dashed'
-        xAxisThickness={3}
-        thickness={2}
-        spacing={40}
-        noOfSections={4}
-        noOfSectionsBelowXAxis={4}
-        dataPointsColor={'#A8FF89'}
-        dataPointsColorNegative={'#fff'}
-        height={140}
-        color='#fff'
-        colorNegative="#fff"
-        stepValue={5}
-        yAxisTextStyle={$chartYAxis}
-        backgroundColor={'#222B31'}
+          data={reformChartPoints(data)}
+          xAxisColor="#fff"
+          yAxisColor="#fff"
+          xAxisType='dashed'
+          xAxisThickness={3}
+          thickness={2}
+          spacing={40}
+          noOfSections={4}
+          noOfSectionsBelowXAxis={4}
+          dataPointsColor={'#A8FF89'}
+          dataPointsColorNegative={'#fff'} // prop doesn't work, need more investigation how to color negative points
+          height={140}
+          color='#fff'
+          colorNegative="#fff"
+          stepValue={5}
+          yAxisTextStyle={$chartYAxis}
+          backgroundColor={'#222B31'}
         />
     </View>
   )

@@ -5,14 +5,11 @@ import { CustomCardLeftBlock } from './CustomCardLeftBlock';
 import { CustomCardRightBlock } from './CustomCardRightBlock';
 import { useFonts, Montserrat_700Bold,  } from '@expo-google-fonts/montserrat';
 
-const leftBlockData = {};
-const rightBlockData = {};
-
 type CustomCardProps = {
-  data: any
+  history: any
 }
 
-export const CustomCard:FC<CustomCardProps> = ({ data }) => {
+export const CustomCard:FC<CustomCardProps> = ({ history }) => {
   const [fontsLoaded] = useFonts({
     Montserrat_700Bold,
   });
@@ -23,8 +20,8 @@ export const CustomCard:FC<CustomCardProps> = ({ data }) => {
 
   return (
     <View style={$container}>
-      <CustomCardLeftBlock data={leftBlockData} />
-      <CustomCardRightBlock data={rightBlockData} />
+      <CustomCardLeftBlock history={history[0]} />
+      <CustomCardRightBlock points={history[0]?.points} />
   </View>
 )}
 

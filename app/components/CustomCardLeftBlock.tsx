@@ -5,19 +5,15 @@ import { Text } from './Text'
 import { HeartIcon } from './HeartIcon';
 import { useFonts, Montserrat_700Bold, Montserrat_400Regular  } from '@expo-google-fonts/montserrat';
 
+import { reformDate } from 'app/models/helpers/reformDate';
+
 type CustomCardProps = {
-  data: any
+  history: any
 }
 
-const mockDataValues = [
-  '50 Box Step Ups (24/20)',
-  '40 Kb Swings (53/35)',
-  '30 Ab-Mat',
-  '20 Barbell Thruster 95/65',
-  '10 Barbell Hang Clean 95/65',
-]
+export const CustomCardLeftBlock:FC<CustomCardProps> = ({ history }) => {
+  const { date_time, exercises, hr, name, rest, time } = history;
 
-export const CustomCardLeftBlock:FC<CustomCardProps> = ({ data }) => {
   const [fontsLoaded] = useFonts({
     Montserrat_700Bold,
     Montserrat_400Regular,
@@ -32,8 +28,8 @@ export const CustomCardLeftBlock:FC<CustomCardProps> = ({ data }) => {
       <View style={$leftBlock}>
         <View style={$header}>
           <View>          
-            <Text text='07/30/2022' weight='bold' style={$date} />
-            <Text text='WOD Newton' weight='bold' style={$title} />
+            <Text text={reformDate(date_time)} weight='bold' style={$date} />
+            <Text text={name} weight='bold' style={$title} />
           </View>
           <View style={$iconWrapper}>
             <HeartIcon />
@@ -42,20 +38,18 @@ export const CustomCardLeftBlock:FC<CustomCardProps> = ({ data }) => {
         <View style={$description}>
           <View style={$infoWrapper}>
             <Text text='Time:' style={$time} />
-            <Text text='12:53' weight='bold' style={$boldValue} />
+            <Text text={time} weight='bold' style={$boldValue} />
           </View>
           <View style={$infoWrapper}>
             <Text text='Rest:' style={$time} />
-            <Text text='0:37 | 5%' weight='bold' style={$regularValue} />
+            <Text text={rest} weight='bold' style={$regularValue} />
           </View>
           <View style={$infoWrapper}>
-            <Text text='167' weight='bold' style={$boldValue} />
+            <Text text={hr} weight='bold' style={$boldValue} />
           </View>
         </View>
         <View style={$itemsContainer}>
-          {mockDataValues.map(item => (
-            <Text text={item} style={$item} key={item}/>
-          ))}
+            <Text text={exercises} style={$item} />
         </View>
       </View>
 )}
@@ -97,7 +91,7 @@ const $description: ViewStyle = {
 }
 
 const $time = {
-  color: '##7B7B7B',
+  color: '#7B7B7B',
   fontSize: 11,
   fontFamily: 'Montserrat_400Regular',
   lineHeight: 24,

@@ -5,9 +5,9 @@ import { Text } from './Text'
 import { useFonts, Montserrat_700Bold,  } from '@expo-google-fonts/montserrat';
 
 type CustomCardProps = {
-  data: any
+  points: number
 }
-export const CustomCardRightBlock:FC<CustomCardProps> = ({ data }) => {
+export const CustomCardRightBlock:FC<CustomCardProps> = ({ points }) => {
   const [fontsLoaded] = useFonts({
     Montserrat_700Bold,
   });
@@ -18,7 +18,7 @@ export const CustomCardRightBlock:FC<CustomCardProps> = ({ data }) => {
 
   return (
     <View style={$container}>
-      <Text text='+189' weight='bold' style={$totalPointsValue} />
+      <Text text={`+${points}`} weight='bold' style={$totalPointsValue} />
       <Text text='Total Points' weight='bold' style={$totalPoints} />
     </View>
   )
